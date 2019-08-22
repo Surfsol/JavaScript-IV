@@ -1,91 +1,129 @@
 // CODE here for your Lambda Classes
-class GameObject{
+class Person{
 	constructor(attr) {
-  	(this.createdAt = attr.createdAt),
-    (this.name = attr.name),
-    (this.dimensions = attr.dimensions);
+  	(this.name = attr.name),
+    (this.age = attr.age),
+    (this.location = attr.location)
 	}
 
-	destroy() {
-  	return `${this.name} was removed from the game.`;
+	speak() {
+  	return `Hello my name is ${this.name}, I am from ${this.location}.`;
   }
 };
 
-class CharacterStats extends GameObject {
-	constructor(cattr) {
-		super(cattr);
-   		(this.healthPoints = cattr);
+class Instructor extends Person {
+	constructor(attr) {
+		super(attr);
+   	(this.specialty = attr.specialty),
+    (this.favLanguage = attr.favLanguage),
+    (this.catchPhrase = attr.catchPhrase)
 		}
 
-	takeDamage() {
-  		return `${this.name}took damage.`;
-	};
+	demo(subject) {
+  		return `Today we are learning about ${subject}.`;
+	}
+  grade(student, subject){
+    return `${student.name} receives a perfect score on ${subject}`;
+  }
 }
 
-class Humanoid extends CharacterStats{
-	constructor(tattr) {
-	super(tattr);	
-  	(this.team = tattr.team),
-    (this.weapons = tattr.weapons),
-    (this.language = tattr.language)
+class Student extends Person {
+  constructor(attr) {
+    super(attr);
+    (this.previousBackground = attr.previousBackground),
+    (this.className = attr.className),
+    (this.favSubjects = attr.favSubjects)
+    }
+
+  listSubjects() {
+      return `${this.favSubjects}`;
+  }
+  PRAssignment(student, subject){
+    return `${student.name} has submitted a PR for ${subject}`;
+  }
+  sprintChallenge(student, subject){
+    return `${student.name} has begun sprint challenge on ${subject}`;
+  }
+}
+
+class ProjectManagers extends Instructor{
+	constructor(attr) {
+	super(attr);	
+  	(this.gradClassName = attr.gradClassName),
+    (this.favInstructor = attr.favInstructor)
 	}
 
-	greet() {
-  		return `${this.name} offers a greeting in ${this.language}`;
+	standUp(channel) {
+  		return `${this.name} announces to {channel}, @channel standy times!`;
 	};
+  debugsCode(student, subject) {
+      return `${this.name} debugs ${student.name}'s code on ${subject}`;
+  };
 }	
 
 // Test you work by un-commenting these 3 objects and the list of console logs below:
 
-const mage = new Humanoid({
-  createdAt: new Date(),
-  dimensions: {
-    length: 2,
-    width: 1,
-    height: 1
-  },
-  healthPoints: 5,
-  name: "Bruce",
-  team: "Mage Guild",
-  weapons: ["Staff of Shamalama"],
-  language: "Common Tongue"
+const anna = new Student({
+  name : 'Anna',
+  age : 23,
+  location : 'Buenos Aires',
+  previousBackground : 'Boluda',
+  className : 'P5500',
+  favSubjects : ['Fernet','La Noche','Bife']
 });
 
-const swordsman = new Humanoid({
-  createdAt: new Date(),
-  dimensions: {
-    length: 2,
-    width: 2,
-    height: 2
-  },
-  healthPoints: 15,
-  name: "Sir Mustachio",
-  team: "The Round Table",
-  weapons: ["Giant Sword", "Shield"],
-  language: "Common Tongue"
+const lisa = new Student({
+  name : 'Lisa',
+  age : 21,
+  location : 'Havana',
+  previousBackground : 'Enfermera',
+  className : 'P5500',
+  favSubjects : ['salsa','mojitos','swimming']
 });
 
-const archer = new Humanoid({
-  createdAt: new Date(),
-  dimensions: {
-    length: 1,
-    width: 2,
-    height: 4
-  },
-  healthPoints: 10,
-  name: "Lilith",
-  team: "Forest Kingdom",
-  weapons: ["Bow", "Dagger"],
-  language: "Elvish"
-});
+const jenny = new Instructor({
+  name : 'Jenny',
+  age : 36,
+  location : 'Miami',
+  specialty : 'Cheerleading',
+  favLanguage : 'Portunol',
+  catchPhrase : 'Come on girls, get to it!'
+  });
 
-console.log(mage.createdAt); // Today's date
-console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
-console.log(swordsman.healthPoints); // 15
-console.log(mage.name); // Bruce
-console.log(swordsman.team); // The Round Table
-console.log(mage.weapons); // Staff of Shamalama
-console.log(archer.language); // Elvish
-console.log(archer.greet()); // Lilith offers a greeting in Elvish.
-console.log(mage.takeDamage()); // Bruce took damage.
-console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
+const finona = new Instructor({
+  name : 'Fiona',
+  age : 30,
+  location : 'Barcelona',
+  specialty : 'Palm Palms',
+  favLanguage : 'Castellano',
+  catchPhrase : 'Muevate, muevate!!'
+  })
+
+const svueltlana = new ProjectManagers({
+  name : 'Svueltlana',
+  age : 28,
+  location : 'Moscow',
+  specialty : 'Uniforms',
+  favLanguage : 'Russian',
+  catchPhrase : 'Spasiba!',
+  gradClassName : 'P5500',
+  favInstructor : 'Fiona',
+  })
+
+const cici = new ProjectManagers({
+  name : 'Cici',
+  age : 30,
+  location : 'Qingdao',
+  specialty : 'Fitness',
+  favLanguage : 'Zhongwen',
+  catchPhrase : 'Wu yao lada.',
+  gradClassName : 'P5500',
+  favInstructor : 'Jenny',
+  })
+
+
+console.log(anna.listSubjects()); 
+console.log(jenny.demo('dance'));
+console.log(jenny.grade(lisa, 'JS' ));
+console.log(cici.debugsCode(lisa, 'mojitos' ));
+console.log(svueltlana.speak());
